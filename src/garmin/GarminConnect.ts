@@ -52,7 +52,7 @@ export enum Event {
 export interface Session {}
 
 export default class GarminConnect {
-    client: HttpClient;
+    public client: HttpClient;
     private _userHash: GCUserHash | undefined;
     private credentials: GCCredentials;
     private listeners: Listeners;
@@ -138,6 +138,19 @@ export default class GarminConnect {
 
     async getUserProfile(): Promise<ISocialProfile> {
         return this.client.get<ISocialProfile>(this.url.USER_PROFILE);
+    }
+
+    async getDailySummary(yyyy_mm_dd: string): Promise<unknown> {
+        return this.client.get<unknown>(
+            'https://connectapi.garmin.com/wellnessactivity-service/activity/summary/' +
+                yyyy_mm_dd
+        );
+    }
+
+    async pulseOxCapable(): Promise<unknown> {
+        return this.client.get<unknown>(
+            'https://connectapi.garmin.com/userprofile-service/userprofile/capableEnable/pulseOxCapable'
+        );
     }
 
     async getActivities(start: number, limit: number): Promise<IActivity[]> {

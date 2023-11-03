@@ -5,8 +5,11 @@ export class UrlClass {
     GC_MODERN: string;
     GARMIN_SSO_ORIGIN: string;
     GC_API: string;
+    GC_BASE: string;
+
     constructor(domain: GarminDomain = 'garmin.com') {
         this.domain = domain;
+        this.GC_BASE = `https://connect.${this.domain}`;
         this.GC_MODERN = `https://connect.${this.domain}/modern`;
         this.GARMIN_SSO_ORIGIN = `https://sso.${this.domain}`;
         this.GC_API = `https://connectapi.${this.domain}`;
@@ -35,14 +38,19 @@ export class UrlClass {
     get USER_PROFILE() {
         return `${this.GC_API}/userprofile-service/socialProfile`;
     }
+    get DAILY_SUMMARY() {
+        return `${this.GC_API}/daily-summary`;
+    }
     get ACTIVITIES() {
         return `${this.GC_API}/activitylist-service/activities/search/activities`;
     }
     get ACTIVITY() {
         return `${this.GC_API}/activity-service/activity/`;
     }
+    //https://connect.garmin.com/usersummary-service/usersummary/daily/eff908dd-9ae6-453b-a254-acd62b33ac7d?calendarDate=2023-11-01
+    //https://connect.garmin.com/wellnessactivity-service/activity/summary/2023-11-01
     get STAT_ACTIVITIES() {
-        return `${this.GC_API}/fitnessstats-service/activity`;
+        return `${this.GC_BASE}/wellnessactivity-service/activity/summary/`;
     }
     get DOWNLOAD_ZIP() {
         return `${this.GC_API}/download-service/files/activity/`;
